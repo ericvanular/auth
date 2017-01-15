@@ -9,6 +9,9 @@ coverage
 # production
 build
 
+# database
+db
+
 # misc
 .DS_Store
 .env

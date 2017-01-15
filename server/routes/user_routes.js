@@ -1,7 +1,7 @@
 'user strict';
 
 var bodyparser = require('body-parser');
-var User = require('../models/User.js');
+var User = require('../models/user.js');
 
 module.exports = function loadUserRoutes(router, passport) {
   router.use(bodyparser.json());

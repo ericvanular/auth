@@ -6,7 +6,7 @@ module.exports = function(router) {
 
   // query DB for ALL beers
   router.get('/beers', function(req, res) {
-    Beer.find({ userId: req.user._id }, function(err, data) {
+    Beer.find({}, function(err, data) {
       if(err) {
         console.log(err);
         return res.status(500).json({msg: 'internal server error'});
@@ -23,7 +23,7 @@ module.exports = function(router) {
     beer.name = req.body.name;
     beer.type = req.body.type;
     beer.quantity = req.body.quantity;
-    beer.userId = req.user._id;
+    beer.userId = req.body.userid;
     // save the beer to DB
     beer.save(function (err, data) {
       if(err) {
@@ -57,9 +57,9 @@ module.exports = function(router) {
   });
 
   // remove a specific beer from DB
-  router.put('/beers/:beer_id', function(req, res) {
+  router.delete('/beers/:beer_id', function(req, res) {
     // Use the Beer model to find a specific beer and remove it
-    Beer.remove({ userId: req.user._id, _id: req.params.beer_id }, function(err) {
+    Beer.remove({ _id: req.body.id }, function(err) {
       if (err)
         return res.send(err);
 

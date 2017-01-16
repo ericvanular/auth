@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+import cookie from 'react-cookie';
+import { browserHistory } from 'react-router';
 
 class SignIn extends Component {
   constructor(props, context) {
@@ -44,7 +46,14 @@ class SignIn extends Component {
        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json'
        },
        body: JSON.stringify(userObj)
-     });
+     })
+     .then(response => {
+       if(response.ok) {
+         cookie.save('username', this.state.username)
+         browserHistory.push('/table');
+       }
+     })
+     .catch(error => {throw error});
       this.setState({ username: '', password: ''});
     }
   }

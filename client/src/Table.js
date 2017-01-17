@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import BeerForm from './BeerForm';
 import BeerRows from './BeerRows';
-import { Button } from 'react-bootstrap';
 
 class Table extends Component {
   constructor(props, context) {
@@ -36,7 +35,7 @@ class Table extends Component {
   render() {
     return (
       <div className="container">
-          <h1>BEER FERDA BOYS</h1>
+          <h1>Beer Tracker</h1>
           <hr/>
           <BeerForm onRefresh={this.refreshBeersList} />
           <hr/>
@@ -44,10 +43,7 @@ class Table extends Component {
       			<div className="col-md-12">
       				<div className="panel panel-primary">
       					<div className="panel-heading">
-      						<h3 className="panel-title">Beer goes here</h3>
-      						<div className="clearfix">
-                      <Button className='pull-right' onClick={this.refreshBeersList}><i className="glyphicon glyphicon-refresh"></i></Button>
-      						</div>
+      						<h3 className="panel-title">Beer DB<i className="glyphicon glyphicon-refresh pull-right" onClick={this.refreshBeersList}></i></h3>
       					</div>
       					<table className="table table-hover" id="dev-table">
                   <thead>

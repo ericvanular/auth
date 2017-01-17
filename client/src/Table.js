@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import BeerForm from './BeerForm';
+import BeerRows from './BeerRows';
 import { Button } from 'react-bootstrap';
 
 class Table extends Component {
@@ -10,6 +11,7 @@ class Table extends Component {
       beers: []
     };
     this.refreshBeersList = this.refreshBeersList.bind(this);
+    this.deleteBeer = this.deleteBeer.bind(this);
   }
   componentDidMount() {
     this.refreshBeersList();
@@ -22,6 +24,14 @@ class Table extends Component {
         console.log('Got the beer!')
       })
       .catch(error => {throw error});
+  }
+  deleteBeer(beerID) {
+    fetch(`/api/beers/${beerID}`, {
+     method: 'delete'
+     })
+     .then(console.log('Deleted the beer!'))
+     .catch(error => {throw error});
+   this.refreshBeersList();
   }
   render() {
     return (
@@ -51,14 +61,7 @@ class Table extends Component {
                   </thead>
                   <tbody>
                     {this.state.beers.length ?
-                      this.state.beers.map((beer,i) =>
-                      <tr key={i}>
-                        <td>{beer.name}</td>
-                        <td>{beer.type}</td>
-                        <td>{beer.quantity}</td>
-                        <td>{beer.userId}</td>
-                        <td>&#10005;</td>
-                      </tr> ) :
+                      this.state.beers.map((beer,i) => <BeerRows key={i} beer={beer} onDelete={this.deleteBeer} /> ) :
                       <tr>
                         <td>No beers here yet!</td>
                       </tr>

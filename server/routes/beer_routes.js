@@ -48,7 +48,7 @@ module.exports = function(router) {
   // update DB data for a specific beer
   router.put('/beers/:beer_id', function(req, res) {
     // Use the Beer model to find a specific beer
-    Beer.update({ userId: req.user._id, _id: req.params.beer_id }, { quantity: req.body.quantity }, function(err, num, raw) {
+    Beer.update({ _id: req.params.beer_id }, { quantity: req.body.quantity }, function(err, num, raw) {
       if (err)
         return res.send(err);
 
@@ -59,7 +59,7 @@ module.exports = function(router) {
   // remove a specific beer from DB
   router.delete('/beers/:beer_id', function(req, res) {
     // Use the Beer model to find a specific beer and remove it
-    Beer.remove({ _id: req.body.id }, function(err) {
+    Beer.remove({ _id: req.params.beer_id }, function(err) {
       if (err)
         return res.send(err);
 
